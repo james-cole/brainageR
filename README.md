@@ -14,6 +14,8 @@ kernlab
 RNifti
 stringr
 
+FSL (for running slicesdir to generate images for quality checking the SPM segmentation)
+
 ## Notes
 The software works on a single T1-weighted MRI scan in uncompressed Nifti format (e.g., subject_01_T1.nii). It can run locally or using an HPC cluster environment. To submit to an HPC queue manager (e.g., SGE, SLURM) you can use one the supplied templates (e.g., submit_template.sh). Simply edit this script to fit your local environment, which will depend on how your sysadmin has configured MATLAB and R to run on your grid. You can then use the generate_submit_scripts.sh utility to create multiple versions of your tailored submit script, one per nifti file. Then use a for loop to submit these multiple scripts to the queue manager.
 Since the software is designed to run on single Nifti files, an output file is created for each Nifti. You can use the collate_brain_ages.sh utility to combine multiple output.csv files from within a single director.
