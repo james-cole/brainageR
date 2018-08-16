@@ -11,7 +11,7 @@ This model has yet to be used in a publication as of 16/08/2018, however the tra
 * Cole JH, Poudel RPK, Tsagkrasoulis D, Caan MWA, Steves C, Spector TD et al. Predicting brain age with deep learning from raw imaging data results in a reliable and heritable biomarker. NeuroImage 2017; 163C: 115-124.
 * Cole JH, Leech R, Sharp DJ, for the Alzheimer's Disease Neuroimaging Initiative. Prediction of brain age suggests accelerated atrophy after traumatic brain injury. Ann Neurol 2015; 77(4): 571-581.
 
-I am also hosting this package on [Zenodo](https://zenodo.org/) and it has it's own [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1346266.svg)](https://doi.org/10.5281/zenodo.1346266).
+I am also hosting this package on [Zenodo](https://zenodo.org/) and it has it's own [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1346266.svg)](https://doi.org/10.5281/zenodo.1346266). You'll need to visit Zenodo to get the missing big file - see Installation below.
 
 Since kernlab does most of the heavy lifting, please consider citing this excellent package:
 https://cran.r-project.org/web/packages/kernlab/citation.html
@@ -60,9 +60,11 @@ Example usage for multiple Niftis in one directory:
 ```css
 ls T1_dir/
 ```
+```
 subj01_T1.nii
 subj02_T1.nii
 subj03_T1.nii
+```
 ```
 cd T1_dir/
 ```
