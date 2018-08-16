@@ -41,7 +41,7 @@ For example:
 brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ```
 ## Installation
-Currently this Github repo is missing a crucial file, the kernlab model file that actual contains the pre-trained GPR model. That because the model file, trained on N=2001 individuals is 5198MB in size, thus way over the limit for even Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from [Zenodo]((https://doi.org/10.5281/zenodo.1346266).
+Currently this Github repo is missing a crucial file, the kernlab model file that actual contains the pre-trained GPR model. That because the model file, trained on N=2001 individuals is 5198MB in size, thus way over the limit for even Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from [Zenodo](https://doi.org/10.5281/zenodo.1346266).
 Once you have that file, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
 Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12. This is what is currently in their, so please edit accordingly:
 ```
