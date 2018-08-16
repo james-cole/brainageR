@@ -11,7 +11,7 @@ This model has yet to be used in a publication as of 16/08/2018, however the tra
 * Cole JH, Poudel RPK, Tsagkrasoulis D, Caan MWA, Steves C, Spector TD et al. Predicting brain age with deep learning from raw imaging data results in a reliable and heritable biomarker. NeuroImage 2017; 163C: 115-124.
 * Cole JH, Leech R, Sharp DJ, for the Alzheimer's Disease Neuroimaging Initiative. Prediction of brain age suggests accelerated atrophy after traumatic brain injury. Ann Neurol 2015; 77(4): 571-581.
 
-I am also hosting this package on [Zenodo](https://zenodo.org/) and it has it's own [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1346266.svg)](https://doi.org/10.5281/zenodo.1346266). I'll update this in due course, but I'd be grateful if you could cite this specific package that way. Watch this space.
+I am also hosting this package on [Zenodo](https://zenodo.org/) and it has it's own [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1346266.svg)](https://doi.org/10.5281/zenodo.1346266).
 
 Since kernlab does most of the heavy lifting, please consider citing this excellent package:
 https://cran.r-project.org/web/packages/kernlab/citation.html
@@ -41,7 +41,7 @@ For example:
 brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ```
 ## Installation
-Currently this Github repo is missing a crucial file, the kernlab model file that actual contains the pre-trained GPR model. That because the model file, trained on N=2001 individuals is 5198MB in size, thus way over the limit for even Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from Zenodo.
+Currently this Github repo is missing a crucial file, the kernlab model file that actual contains the pre-trained GPR model. That because the model file, trained on N=2001 individuals is 5198MB in size, thus way over the limit for even Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from [Zenodo]((https://doi.org/10.5281/zenodo.1346266).
 Once you have that file, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
 Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12. This is what is currently in their, so please edit accordingly:
 ```
