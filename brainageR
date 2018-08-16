@@ -20,8 +20,9 @@ For example:
 brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 
 Dependencies:
-R packages: kernlab, psych, RNifti, stringr
+R packages: kernlab, RNifti, stringr
 SPM (MATLAB)
+FSL (for slicesdir)
 
 EOF
     exit 1
