@@ -53,7 +53,6 @@ module load fsl
 brainageR_dir=/home/jcole/brain_age/BRAIN_AGE_T1/brainageR/
 spm_dir=/apps/matlab_toolboxes/spm12/
 ## run brainageR analysis
-nifti_file=$(find `pwd` -name $nifti_file) 
 cmd="matlab -nosplash -nodesktop -r \"addpath(['$brainageR_dir','software/']);spm_preprocess_brainageR('$nifti_file',['$brainageR_dir','software/templates/'], '$spm_dir');exit\""
 eval ${cmd}
 find `pwd` -name smwc1${nifti_file} > smwc1${nifti_file%.nii}.txt
