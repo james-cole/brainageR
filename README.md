@@ -3,7 +3,9 @@ Software for generating a brain-predicted age value from a raw T1-weighted MRI s
 
 The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentation and normalisation. A slightly customised version **FSL** *slicesdir* is then used to generate a directory of PNGs and corresponding index.html file for quality controlling in a web browser. Finally, the normalised images and loaded into R using the **RNfiti** package, vectorised and grey matter and white matter vectors masked and combined. The mask is mean image derived from the registration template for each tissue class, thresholded at 0.2 and binarised. This final long vector (632065 voxels long) is then used to predict an age value with the trained model with **kernlab**.
 
-The model is was trained on n = 2001 healthy individuals from various pubically available datasets. Details of the data sources can be found in supplementary material of some of my publications, for example in Table S1 for Cole et al., 2017 NeuroImage,  [here](https://www.sciencedirect.com/science/article/pii/S1053811917306407?via%3Dihub#appsec1).
+### The Model 
+The brainageR model was trained on n = 2001 healthy individuals from various publicly-available datasets. Details of the data sources can be found in supplementary material of some of my publications, for example in Table S1 for Cole et al., 2017 NeuroImage,  [here](https://www.sciencedirect.com/science/article/pii/S1053811917306407?via%3Dihub#appsec1).
+The model performance after 10-fold cross-validation (with random assignment to folds) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.946, mean absolute error = 4.670 years, R^2 = 0.896, RMSE = 5.860.
 
 ### Citations
 This model has yet to be used in a publication as of 16/08/2018, however the training dataset and general approach have been used before. So if you use this software, please cite one or more of the following papers:
