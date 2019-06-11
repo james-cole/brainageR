@@ -37,6 +37,7 @@ Required arguments:
 
 Optional arguments:
 	-d: debug mode - turns off clean-up
+	-n: turn OFF the following age bias correction: corrected_brain_age = (brain_age - 3.33)/0.91
 	-h: displays this help message
 
 For example:
