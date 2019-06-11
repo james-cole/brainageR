@@ -50,6 +50,7 @@ Once you have the software files, you need to edit the `brainageR` script to set
 ```
 brainageR_dir=/home/jcole/brain_age/BRAIN_AGE_T1/brainageR/
 spm_dir=/apps/matlab_toolboxes/spm12/
+matlab_path=/Applications/MATLAB_R2017b.app/bin/matlab
 ```
 For ease, you might then want to add the brainageR software directory to your path environmental variable.
 ## Notes
