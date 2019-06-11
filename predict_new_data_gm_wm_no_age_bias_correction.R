@@ -39,7 +39,6 @@ paste("loading regression model", date(),sep = " ")
 load(args[4])
 ## generate predictions
 pred <- predict(model, new_data_mat)
-pred <- (pred - 3.33)/0.91
 ## save predictions to text file
 paste("saving new results", date(),sep = " ")
 str_sub(gm.list, 1, str_locate(gm.list, "smwc1")[,2]) <- ""

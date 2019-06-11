@@ -5,7 +5,7 @@ The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentati
 
 ### The Model 
 The brainageR model was trained on n = 2001 healthy individuals from various publicly-available datasets. Details of the data sources can be found in supplementary material of some of my publications, for example in Table S1 for Cole et al., 2017 NeuroImage,  [here](https://www.sciencedirect.com/science/article/pii/S1053811917306407?via%3Dihub#appsec1).
-The model performance after 10-fold cross-validation (with random assignment to folds) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.946, mean absolute error = 4.670 years, R^2 = 0.896, RMSE = 5.860.
+The model performance after 10-fold cross-validation (with random assignment to folds) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.946, mean absolute error = 4.670 years, R^2 = 0.896, RMSE = 5.860. The model also automatically corrects predictions for a statistical dependency on chronological age, to remove any age-related prediction bias. This is done by calculating the slope and intercept of the relationship between age and brain-predicted age and the corrected age = (predicted age - 3.33) / 0.91.
 
 ### Citations
 This model has yet to be used in a publication as of 16/08/2018, however the training dataset and general approach have been used before. So if you use this software, please cite one or more of the following papers:
@@ -45,7 +45,7 @@ brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ## Installation
 Currently this Github repo is missing a crucial file, the kernlab model file that actual contains the pre-trained GPR model. That because the model file, trained on N=2001 individuals is 5198MB in size, thus way over the limit for even Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from [Zenodo](https://doi.org/10.5281/zenodo.1346266).
 Once you have that file, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
-Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12. This is what is currently in their, so please edit accordingly:
+Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12. This is what is currently in there, so please edit accordingly:
 ```
 brainageR_dir=/home/jcole/brain_age/BRAIN_AGE_T1/brainageR/
 spm_dir=/apps/matlab_toolboxes/spm12/
@@ -79,10 +79,11 @@ generate_submit_scripts file_list.txt /apps/brainageR/software/sge_submit_templa
 ```
 ls *sh
 ```
+```
 subj01_T1_submit_template.sh
 subj02_T1_submit_template.sh
 subj03_T1_submit_template.sh
-
+```
 ```
 for i in *submit_script.sh; do
 	qsub $i
