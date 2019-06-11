@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-## learnR SV regression using nifti files
+## kernlab regression using nifti files
 ## James Cole 07/08/2018
 rm(list = ls())
 args <- commandArgs(trailingOnly = TRUE)
