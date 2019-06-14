@@ -57,11 +57,11 @@ for software in R matlab fsl; do
 	if [ ! $software_check2 == "bin" ]; then echo $software not found; exit 1; fi
 done
 ## software directories for your local system
-brainageR_dir=/Users/jcole/Work/Brain\ ageing/brainageR/
-spm_dir=/Users/jcole/apps/spm12/
+brainageR_dir=/Users/jcole/Work/Brain\ ageing/brainageR
+spm_dir=/Users/jcole/apps/spm12
 matlab_path=/Applications/MATLAB_R2017b.app/bin/matlab
 ## run brainageR analysis
-cmd="$matlab_path -nosplash -nodesktop -r \"addpath(['$brainageR_dir','software/']);spm_preprocess_brainageR('$nifti_file',['$brainageR_dir','software/templates/'], '$spm_dir');exit\""
+cmd="$matlab_path -nosplash -nodesktop -r \"addpath(['$brainageR_dir','/software/']);spm_preprocess_brainageR('$nifti_file',['$brainageR_dir','/software/templates/'], '$spm_dir');exit\""
 eval ${cmd}
 find `pwd` -name smwc1${nifti_file} > smwc1${nifti_file%.nii}.txt
 find `pwd` -name smwc2${nifti_file} > smwc2${nifti_file%.nii}.txt
