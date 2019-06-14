@@ -31,7 +31,7 @@ EOF
 
 ############################################################################
 
-while getopts ":f:o:dhn:" opt; do
+while getopts ":f:o:dnh:" opt; do
     case "${opt}" in
         f)  	nifti_file=${OPTARG} ;;
         o)		output_filename=${OPTARG} ;;
