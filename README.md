@@ -1,19 +1,24 @@
 # brainageR
 Software for generating a brain-predicted age value from a raw T1-weighted MRI scan. This uses a Gaussian Processes regression, implemented in R, using the kernlab package.
 
-The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentation and normalisation. A slightly customised version **FSL** *slicesdir* is then used to generate a directory of PNGs and corresponding index.html file for quality controlling in a web browser. Finally, the normalised images and loaded into R using the **RNfiti** package, vectorised and grey matter and white matter vectors masked and combined. The mask is mean image derived from the registration template for each tissue class, thresholded at 0.2 and binarised. This final long vector (632065 voxels long) is then used to predict an age value with the trained model with **kernlab**.
+The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentation and normalisation. A slightly customised version **FSL** *slicesdir* is then used to generate a directory of PNGs and corresponding index.html file for quality controlling in a web browser. Finally, the normalised images and loaded into R using the **RNfiti** package, vectorised and grey matter, white matter and CSF vectors masked and combined. The mask is mean image derived from the registration template for each tissue class, thresholded at 0.2 and binarised. This final long vector (632065 voxels long) is then used to predict an age value with the trained model with **kernlab**.
+
+### Changes for version 2.0
+PCA (435 PCs)
+CSF
+All on github
+
 
 ### The Model 
-The brainageR model for v2.0 was trained on n = 3377 healthy individuals from six publicly-available datasets, and tested on n = 857. 
-|   |   |
-|---|---|
-|AIBL|   |
-|DLBS|   |
-|GSP|   |
-|IXI|   |
-|NKI-RS|   |
-|OASIS|    |
-|SALD|    |
+The brainageR model for v2.0 was trained on n = 3377 healthy individuals from six publicly-available datasets, and tested on n = 857.
+
+* AIBL
+* DLBS
+* GSP
+* IXI
+* NKI-RS
+* OASIS
+* SALD
 
 The model performance on the held-out test data (with random assignment to training and test) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.973, mean absolute error = 3.933 years, R^2 = 0.946. While a bias has been reported in terms of a correlation between chronological age and the brain-age difference, in this GPR model the correlation in the test set was r = -0.005. Hence, the model DOES NOT automatically correct predictions for a statistical dependency on chronological age. It is still recommend to use age as a covariate in future analysis that used brain-prediced age difference (brain-PAD) as the outcome measure.
 
