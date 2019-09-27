@@ -4,8 +4,18 @@ Software for generating a brain-predicted age value from a raw T1-weighted MRI s
 The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentation and normalisation. A slightly customised version **FSL** *slicesdir* is then used to generate a directory of PNGs and corresponding index.html file for quality controlling in a web browser. Finally, the normalised images and loaded into R using the **RNfiti** package, vectorised and grey matter and white matter vectors masked and combined. The mask is mean image derived from the registration template for each tissue class, thresholded at 0.2 and binarised. This final long vector (632065 voxels long) is then used to predict an age value with the trained model with **kernlab**.
 
 ### The Model 
-The brainageR model was trained on n = 2001 healthy individuals from various publicly-available datasets. Details of the data sources can be found in supplementary material of some of my publications, for example in Table S1 for Cole et al., 2017 NeuroImage,  [here](https://www.sciencedirect.com/science/article/pii/S1053811917306407?via%3Dihub#appsec1).
-The model performance after 10-fold cross-validation (with random assignment to folds) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.946, mean absolute error = 4.670 years, R^2 = 0.896, RMSE = 5.860. The model also automatically corrects predictions for a statistical dependency on chronological age, to remove any age-related prediction bias. This is done by calculating the slope and intercept of the relationship between age and brain-predicted age and the corrected age = (predicted age - 3.33) / 0.91.
+The brainageR model for v2.0 was trained on n = 3377 healthy individuals from six publicly-available datasets, and tested on n = 857. 
+|   |   |
+|---|---|
+|AIBL|   |
+|DLBS|   |
+|GSP|   |
+|IXI|   |
+|NKI-RS|   |
+|OASIS|    |
+|SALD|    |
+
+The model performance on the held-out test data (with random assignment to training and test) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.973, mean absolute error = 3.933 years, R^2 = 0.946. While a bias has been reported in terms of a correlation between chronological age and the brain-age difference, in this GPR model the correlation in the test set was r = -0.005. Hence, the model DOES NOT automatically correct predictions for a statistical dependency on chronological age. It is still recommend to use age as a covariate in future analysis that used brain-prediced age difference (brain-PAD) as the outcome measure.
 
 ### Citations
 This model has yet to be used in a publication as of 16/08/2018, however the training dataset and general approach have been used before. So if you use this software, please cite one or more of the following papers:
