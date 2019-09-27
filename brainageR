@@ -1,12 +1,12 @@
 #!/bin/sh
 ## brainageR software, global wrapper script
 ## James Cole, King's College London james.cole@kcl.ac.uk
-## software version 1.0 09 Aug 2018
+## software version 2.0 24 Sep 2019
 
 usage() {
     cat <<EOF
 
-brainageR software version 1.0 09 Aug 2018
+brainageR software version 2.0 24 Sep 2019
 
 Required arguments: 
 	-f: input Nifti file
@@ -14,7 +14,6 @@ Required arguments:
 
 Optional arguments:
 	-d: debug mode - turns off clean-up
-	-n: turn OFF the following age bias correction: corrected_brain_age = (brain_age - 3.33)/0.91
 	-h: displays this help message
 
 For example:
@@ -57,26 +56,23 @@ for software in R matlab fsl; do
 	if [ ! $software_check2 == "bin" ]; then echo $software not found; exit 1; fi
 done
 ## software directories for your local system
-brainageR_dir=/Users/jcole/Work/Brain\ ageing/brainageR
-spm_dir=/Users/jcole/apps/spm12
-matlab_path=/Applications/MATLAB_R2017b.app/bin/matlab
+brainageR_dir=/home/jcole/Work/Brain\ ageing/brainageR
+spm_dir=/usr/local/spm12/
+matlab_path=/usr/local/bin/matlab
 ## run brainageR analysis
 cmd="$matlab_path -nosplash -nodesktop -r \"addpath(['$brainageR_dir','/software/']);spm_preprocess_brainageR('$nifti_file',['$brainageR_dir','/software/templates/'], '$spm_dir');exit\""
 eval ${cmd}
-find `pwd` -name smwc1${nifti_file} > smwc1${nifti_file%.nii}.txt
-find `pwd` -name smwc2${nifti_file} > smwc2${nifti_file%.nii}.txt
-$brainageR_dir/software/slicesdir.brainageR -n ${nifti_file%.nii} [c,s]*[1,2]*${nifti_file}
+readlink -f smwc1${nifti_file} > /tmp/smwc1${nifti_file%.nii}.txt
+readlink -f smwc2${nifti_file} > /tmp/smwc2${nifti_file%.nii}.txt
+readlink -f smwc3${nifti_file} > /tmp/smwc3${nifti_file%.nii}.txt
+## generate QC images and html file
+bash "$brainageR_dir"/software/slicesdir.brainageR -n ${nifti_file%.nii} [c,s]*[1,2,3]*${nifti_file}
 ## generate predictions
-if [ -z $no_bias_correction ]; then
-Rscript $brainageR_dir/software/predict_new_data_gm_wm.R $brainageR_dir `pwd`/smwc1${nifti_file%.nii}.txt `pwd`/smwc2${nifti_file%.nii}.txt $brainageR_dir/software/GPR_model_gm_wm.RData `pwd`/$output_filename
-else
-Rscript $brainageR_dir/software/predict_new_data_gm_wm_no_age_bias_correction.R $brainageR_dir `pwd`/smwc1${nifti_file%.nii}.txt `pwd`/smwc2${nifti_file%.nii}.txt $brainageR_dir/software/GPR_model_gm_wm.RData `pwd`/$output_filename
-fi
+Rscript "$brainageR_dir"/software/predict_new_data_gm_wm_csf.R "${brainageR_dir}" /tmp/smwc1${nifti_file%.nii}.txt /tmp/smwc2${nifti_file%.nii}.txt /tmp/smwc3${nifti_file%.nii}.txt "${brainageR_dir}"/software/GPR_model_gm_wm_csf.RData $output_filename
 ## clean up
-if [ -z $debug_mode  ]; then
-for img in c1 c2 c3 rc1 rc2 rc3 u_rc1 smwc1 smwc2; do
+if [ -z $debug_mode ]; then
+for img in c1 c2 c3 rc1 rc2 rc3 u_rc1 smwc1 smwc2 smwc3; do
 	rm ${img}${nifti_file}
 done
 rm ${nifti_file%.nii}*seg8.mat
-rm smwc[1,2]${nifti_file%.nii}.txt
 fi

@@ -1,5 +1,4 @@
 function spm_preprocess_brainageR(t1, template_dir, spm_dir)
-% edited to run on brodmann23d
 addpath(spm_dir);
 % check arguments are specified
 if nargin < 3
@@ -52,7 +51,7 @@ matlabbatch{1}.spm.spatial.preproc.warp.write = [0 0];
 % Run Dartel (existing Templates)
 matlabbatch{2}.spm.tools.dartel.warp1.images{1}(1) = cfg_dep('Segment: rc1 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{1}, '.','rc', '()',{':'}));
 matlabbatch{2}.spm.tools.dartel.warp1.images{2}(1) = cfg_dep('Segment: rc2 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{2}, '.','rc', '()',{':'}));
-%matlabbatch{2}.spm.tools.dartel.warp1.images{3}(1) = cfg_dep('Segment: rc3 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{3}, '.','rc', '()',{':'}));
+matlabbatch{2}.spm.tools.dartel.warp1.images{3}(1) = cfg_dep('Segment: rc3 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{3}, '.','rc', '()',{':'}));
 matlabbatch{2}.spm.tools.dartel.warp1.settings.rform = 0;
 matlabbatch{2}.spm.tools.dartel.warp1.settings.param(1).its = 3;
 matlabbatch{2}.spm.tools.dartel.warp1.settings.param(1).rparam = [4 2 1e-06];
@@ -87,7 +86,7 @@ matlabbatch{3}.spm.tools.dartel.mni_norm.template = {[template_dir,'Template_6.n
 matlabbatch{3}.spm.tools.dartel.mni_norm.data.subjs.flowfields(1) = cfg_dep('Run Dartel (existing Templates): Flow Fields', substruct('.','val', '{}',{2}, '.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','files', '()',{':'}));
 matlabbatch{3}.spm.tools.dartel.mni_norm.data.subjs.images{1}(1) = cfg_dep('Segment: c1 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{1}, '.','c', '()',{':'}));
 matlabbatch{3}.spm.tools.dartel.mni_norm.data.subjs.images{2}(1) = cfg_dep('Segment: c2 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{2}, '.','c', '()',{':'}));
-%matlabbatch{3}.spm.tools.dartel.mni_norm.data.subjs.images{3}(1) = cfg_dep('Segment: c3 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{3}, '.','c', '()',{':'}));
+matlabbatch{3}.spm.tools.dartel.mni_norm.data.subjs.images{3}(1) = cfg_dep('Segment: c3 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{3}, '.','c', '()',{':'}));
 matlabbatch{3}.spm.tools.dartel.mni_norm.vox = [NaN NaN NaN];
 matlabbatch{3}.spm.tools.dartel.mni_norm.bb = [NaN NaN NaN
                                                NaN NaN NaN];
