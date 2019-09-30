@@ -10,7 +10,7 @@ All on github
 
 
 ### The Model 
-The brainageR model for v2.0 was trained on n = 3377 healthy individuals from six publicly-available datasets, and tested on n = 857.
+The brainageR model for v2.0 was trained on n = 3377 healthy individuals from seven publicly-available datasets, and tested on n = 857.
 
 * AIBL
 * DLBS
@@ -23,7 +23,7 @@ The brainageR model for v2.0 was trained on n = 3377 healthy individuals from si
 The model performance on the held-out test data (with random assignment to training and test) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.973, mean absolute error = 3.933 years, R^2 = 0.946. While a bias has been reported in terms of a correlation between chronological age and the brain-age difference, in this GPR model the correlation in the test set was r = -0.005. Hence, the model DOES NOT automatically correct predictions for a statistical dependency on chronological age. It is still recommend to use age as a covariate in future analysis that used brain-prediced age difference (brain-PAD) as the outcome measure.
 
 ### Citations
-This model has yet to be used in a publication as of 16/08/2018, however the training dataset and general approach have been used before. So if you use this software, please cite one or more of the following papers:
+This model has yet to be used in a publication as of 30/09/2019, however some of the training dataset and general approach have been used before. So if you use this software, please consider citing one or more of the following papers:
 * Cole JH, Ritchie SJ, Bastin ME, Valdes Hernandez MC, Munoz Maniega S, Royle N et al. Brain age predicts mortality. Molecular psychiatry 2018; 23: 1385-1392.
 * Cole JH, Poudel RPK, Tsagkrasoulis D, Caan MWA, Steves C, Spector TD et al. Predicting brain age with deep learning from raw imaging data results in a reliable and heritable biomarker. NeuroImage 2017; 163C: 115-124.
 * Cole JH, Leech R, Sharp DJ, for the Alzheimer's Disease Neuroimaging Initiative. Prediction of brain age suggests accelerated atrophy after traumatic brain injury. Ann Neurol 2015; 77(4): 571-581.
@@ -34,17 +34,19 @@ Since kernlab does most of the heavy lifting, please consider citing this excell
 https://cran.r-project.org/web/packages/kernlab/citation.html
 
 ## Prerequisites
-* SPM12 (and MATLAB)
-* Lmod (for loading software modules - though if R, Matlab and SPM are all available without Lmod, the script should work) 
+* SPM12 (and thus MATLAB)
 * R (tested on v3.4)
 * R packages:
-* kernlab
-* RNifti
-* stringr
+ * kernlab
+ * RNifti
+ * stringr
+
+### Optional (but recommended) software
 * FSL (for running slicesdir to generate images for quality checking the SPM segmentation)
+* Lmod (for loading software modules - though if R, Matlab and SPM are all available without Lmod, the script should work) 
 ## Usage
 ```
-brainageR software version 1.0 09 Aug 2018
+brainageR software version 2.0 24 Sep 2019
 
 Required arguments: 
 	-f: input Nifti file
@@ -52,28 +54,31 @@ Required arguments:
 
 Optional arguments:
 	-d: debug mode - turns off clean-up
-	-n: turn OFF the following age bias correction: corrected_brain_age = (brain_age - 3.33)/0.91
 	-h: displays this help message
 
 For example:
 brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ```
+
 ## Installation
-Currently this Github repo is missing a crucial file, the kernlab model file that actual contains the pre-trained GPR model. That because the model file, trained on N=2001 individuals is 5198MB in size, thus way over the limit for even Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from [Zenodo](https://doi.org/10.5281/zenodo.1346266).
+Currently this Github repo is missing a crucial file, the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from [Zenodo](https://doi.org/10.5281/zenodo.1346266).
 Once you have that file, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
 Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12. This is what is currently in there, so please edit accordingly:
 ```
 brainageR_dir=/home/jcole/brain_age/BRAIN_AGE_T1/brainageR/
 spm_dir=/apps/matlab_toolboxes/spm12/
 matlab_path=/Applications/MATLAB_R2017b.app/bin/matlab
+FSLDIR=/usr/local/fsl/
 ```
 For ease, you might then want to add the brainageR software directory to your path environmental variable.
+
 ## Notes
-The software works on a single T1-weighted MRI scan in uncompressed Nifti format (e.g., subject_01_T1.nii). It can run locally or using an HPC cluster environment. To submit to an HPC queue manager (e.g., SGE, SLURM) you can use one the supplied templates (e.g., submit_template.sh). Simply edit this script to fit your local environment, which will depend on how your sysadmin has configured MATLAB and R to run on your grid. You can then use the **generate_submit_scripts.sh** utility to create multiple versions of your tailored submit script, one per nifti file. Then use a for loop to submit these multiple scripts to the queue manager.
+The software works on a single T1-weighted MRI scan in uncompressed Nifti format (e.g., subj01\_T1.nii). It can run locally or using an HPC cluster environment. To submit to an HPC queue manager (e.g., SGE, SLURM) you can use one the supplied templates (e.g., submit\_template.sh). Simply edit this script to fit your local environment, which will depend on how your sysadmin has configured MATLAB and R to run on your grid. You can then use the **generate_submit_scripts.sh** utility to create multiple versions of your tailored submit script, one per nifti file. Then use a for loop to submit these multiple scripts to the queue manager.
+
 Since the software is designed to run on single Nifti files, an output file is created for each Nifti. You can use the **collate_brain_ages.sh** utility to combine multiple output.csv files from within a single director.
 
 Example usage for single Nifti:
-brainageR -f subj01_T1.nii -o subj01_brain.predicted_age.csv
+brainageR -f subj01\_T1.nii -o subj01_brain.predicted_age.csv
 
 Example usage for multiple Niftis in one directory:
 ```css

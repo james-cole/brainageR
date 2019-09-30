@@ -30,12 +30,11 @@ EOF
 
 ############################################################################
 
-while getopts ":f:o:dnh:" opt; do
+while getopts ":f:o:dh:" opt; do
     case "${opt}" in
         f)  	nifti_file=${OPTARG} ;;
         o)		output_filename=${OPTARG} ;;
         d)		debug_mode=1 ;;
-		n) 		no_bias_correction=1 ;;
         h|*)    usage ;;
     esac
 done
@@ -45,7 +44,7 @@ if [ -z "${nifti_file}" ] || [ -z "${output_filename}" ]; then
     usage
 fi
 
-## check files are Niftis
+## check files are uncompressed NIFTI fortmat
 if [[ $nifti_file != *.nii ]]; then usage; fi
 ## check software environment and attempt to load using module
 ## CONFIGURE FOR YOUR LOCAL SYSTEM
@@ -59,6 +58,7 @@ done
 brainageR_dir=/home/jcole/Work/Brain\ ageing/brainageR
 spm_dir=/usr/local/spm12/
 matlab_path=/usr/local/bin/matlab
+FSLDIR=/usr/local/fsl/
 ## run brainageR analysis
 cmd="$matlab_path -nosplash -nodesktop -r \"addpath(['$brainageR_dir','/software/']);spm_preprocess_brainageR('$nifti_file',['$brainageR_dir','/software/templates/'], '$spm_dir');exit\""
 eval ${cmd}
