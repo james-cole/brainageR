@@ -55,7 +55,7 @@ brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ```
 
 ## Installation
-Currently this Github repo is missing a crucial file, the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. You can either get this file directly from me (james.cole@kcl.ac.uk) or from [Zenodo](https://doi.org/10.5281/zenodo.1346266).
+Currently this Github repo is missing a crucial file (pca_rotation.rds), the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. However, you can can this from the v2.0 RELEASE page, where it is listed under Binaries. It's also availabe on [Zenodo](https://doi.org/10.5281/zenodo.1346266) or [OSF](https://osf.io/azwmg/).
 Once you have that file, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
 Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12. This is what is currently in there, so please edit accordingly:
 ```
