@@ -6,7 +6,7 @@ The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentati
 ### Brain-age Model 
 The brainageR model for v2.0 was trained on n = 3377 healthy individuals from seven publicly-available datasets, and tested on n = 857. All participants included were healthy according to local study data. For example OASIS participants were only included if they had a CDR score < 0.5. All data was visually quality control to ensure quality and accuracy of image processing. Demographics were error-checked, and exclusions made if age values were unavailable.
 
-* Australian Imaging, Biomarker & Lifestyle Flagship Study of Ageing (AIBL; https://aibl.csiro.au/) 
+* Australian Imaging, Biomarker & Lifestyle Flagship Study of Ageing ([AIBL](https://aibl.csiro.au/))
 * Dallas Lifespan Brain Study (DLBS; http://fcon_1000.projects.nitrc.org/indi/retro/dlbs.html)
 * Brain Genome Superstruct Project (GSP; https://dataverse.harvard.edu/dataverse/GSP)
 * IXI (https://brain-development.org/ixi-dataset/)
