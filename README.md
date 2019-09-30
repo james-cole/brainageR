@@ -7,12 +7,12 @@ The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentati
 The brainageR model for v2.0 was trained on n = 3377 healthy individuals from seven publicly-available datasets, and tested on n = 857. All participants included were healthy according to local study data. For example OASIS participants were only included if they had a CDR score < 0.5. All data was visually quality control to ensure quality and accuracy of image processing. Demographics were error-checked, and exclusions made if age values were unavailable.
 
 * Australian Imaging, Biomarker & Lifestyle Flagship Study of Ageing ([AIBL](https://aibl.csiro.au/))
-* Dallas Lifespan Brain Study (DLBS; http://fcon_1000.projects.nitrc.org/indi/retro/dlbs.html)
-* Brain Genome Superstruct Project (GSP; https://dataverse.harvard.edu/dataverse/GSP)
-* IXI (https://brain-development.org/ixi-dataset/)
-* Nathan Kline Institute Rocklands Sample  (http://fcon_1000.projects.nitrc.org/indi/enhanced/)
-* Open Acces Series of Imaging Studies-1 (OASIS-1; https://www.oasis-brains.org/)
-* Southwest University Adult Lifespan Dataset (SALD; http://fcon_1000.projects.nitrc.org/indi/retro/sald.html)
+* Dallas Lifespan Brain Study ([DLBS](http://fcon_1000.projects.nitrc.org/indi/retro/dlbs.html))
+* Brain Genome Superstruct Project ([GSP](https://dataverse.harvard.edu/dataverse/GSP))
+* [IXI](https://brain-development.org/ixi-dataset/)
+* [Nathan Kline Institute Rocklands Sample Enhanced](http://fcon_1000.projects.nitrc.org/indi/enhanced/)
+* Open Acces Series of Imaging Studies-1 ([OASIS-1](https://www.oasis-brains.org/))
+* Southwest University Adult Lifespan Dataset ([SALD](http://fcon_1000.projects.nitrc.org/indi/retro/sald.html))
 
 The model performance on the held-out test data (with random assignment to training and test) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.973, mean absolute error = 3.933 years, R^2 = 0.946. While a bias has been reported in terms of a correlation between chronological age and the brain-age difference, in this GPR model the correlation in the test set was r = -0.005. Hence, the model DOES NOT automatically correct predictions for a statistical dependency on chronological age. It is still recommend to use age as a covariate in future analysis that used brain-prediced age difference (brain-PAD) as the outcome measure.
 
