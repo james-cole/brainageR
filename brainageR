@@ -32,20 +32,24 @@ EOF
 
 while getopts ":f:o:dh:" opt; do
     case "${opt}" in
-        f)  	nifti_file=${OPTARG} ;;
-        o)		output_filename=${OPTARG} ;;
-        d)		debug_mode=1 ;;
+        f)  	input_file=${OPTARG} ;;
+        o)	output_filename=${OPTARG} ;;
+        d)	debug_mode=1 ;;
         h|*)    usage ;;
     esac
 done
 shift $((OPTIND-1))
 
-if [ -z "${nifti_file}" ] || [ -z "${output_filename}" ]; then
+if [ -z "${input_file}" ] || [ -z "${output_filename}" ]; then
     usage
 fi
 
+full_path_file=`readlink -f $input_file`
+file_name=`basename -s .nii $full_path_file`
+full_path=`echo $full_path_file | sed -e "s@${file_name}.nii@@"`
+echo $full_path
 ## check files are uncompressed NIFTI fortmat
-if [[ $nifti_file != *.nii ]]; then usage; fi
+if [[ $full_path_file != *.nii ]]; then usage; fi
 ## check software environment and attempt to load using module
 ## CONFIGURE FOR YOUR LOCAL SYSTEM
 for software in R matlab fsl; do
@@ -60,19 +64,19 @@ spm_dir=/usr/local/spm12/
 matlab_path=/usr/local/bin/matlab
 FSLDIR=/usr/local/fsl/
 ## run brainageR analysis
-cmd="$matlab_path -nosplash -nodesktop -r \"addpath(['$brainageR_dir','/software/']);spm_preprocess_brainageR('$nifti_file',['$brainageR_dir','/software/templates/'], '$spm_dir');exit\""
+cmd="$matlab_path -nosplash -nodesktop -r \"addpath(['$brainageR_dir','/software/']);spm_preprocess_brainageR('$full_path_file',['$brainageR_dir','/software/templates/'], '$spm_dir');exit\""
 eval ${cmd}
-readlink -f smwc1${nifti_file} > /tmp/smwc1${nifti_file%.nii}.txt
-readlink -f smwc2${nifti_file} > /tmp/smwc2${nifti_file%.nii}.txt
-readlink -f smwc3${nifti_file} > /tmp/smwc3${nifti_file%.nii}.txt
+echo ${full_path}/smwc1${file_name}.nii > /tmp/smwc1${file_name}.txt
+echo ${full_path}/smwc2${file_name}.nii > /tmp/smwc2${file_name}.txt
+echo ${full_path}/smwc3${file_name}.nii > /tmp/smwc3${file_name}.txt
 ## generate QC images and html file
-bash "$brainageR_dir"/software/slicesdir.brainageR -n ${nifti_file%.nii} [c,s]*[1,2,3]*${nifti_file}
+bash "$brainageR_dir"/software/slicesdir.brainageR -n ${file_name} [c,s]*[1,2,3]*${file_name}.nii
 ## generate predictions
-Rscript "$brainageR_dir"/software/predict_new_data_gm_wm_csf.R "${brainageR_dir}" /tmp/smwc1${nifti_file%.nii}.txt /tmp/smwc2${nifti_file%.nii}.txt /tmp/smwc3${nifti_file%.nii}.txt "${brainageR_dir}"/software/GPR_model_gm_wm_csf.RData $output_filename
+Rscript "$brainageR_dir"/software/predict_new_data_gm_wm_csf.R "${brainageR_dir}" /tmp/smwc1${file_name}.txt /tmp/smwc2${file_name}.txt /tmp/smwc3${file_name}.txt "${brainageR_dir}"/software/GPR_model_gm_wm_csf.RData $output_filename
 ## clean up
 if [ -z $debug_mode ]; then
 for img in c1 c2 c3 rc1 rc2 rc3 u_rc1 smwc1 smwc2 smwc3; do
-	rm ${img}${nifti_file}
+	rm ${img}${file_name}.nii
 done
-rm ${nifti_file%.nii}*seg8.mat
+rm ${file_name}*seg8.mat
 fi

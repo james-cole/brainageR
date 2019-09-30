@@ -6,7 +6,7 @@ if nargin < 3
 end
 
 spm_jobman('initcfg');
-t1 = fullfile(pwd,t1);
+%t1 = fullfile(pwd,t1);
 pattern = '.nii';
 replacement = '';
 fname = regexprep(t1,pattern,replacement);
