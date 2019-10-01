@@ -70,13 +70,13 @@ echo ${full_path}/smwc1${file_name}.nii > /tmp/smwc1${file_name}.txt
 echo ${full_path}/smwc2${file_name}.nii > /tmp/smwc2${file_name}.txt
 echo ${full_path}/smwc3${file_name}.nii > /tmp/smwc3${file_name}.txt
 ## generate QC images and html file
-bash "$brainageR_dir"/software/slicesdir.brainageR -n ${file_name} [c,s]*[1,2,3]*${file_name}.nii
+bash "$brainageR_dir"/software/slicesdir.brainageR -n ${full_path}/${file_name}.nii ${full_path}/[c,s]*[1,2,3]*${file_name}.nii
 ## generate predictions
 Rscript "$brainageR_dir"/software/predict_new_data_gm_wm_csf.R "${brainageR_dir}" /tmp/smwc1${file_name}.txt /tmp/smwc2${file_name}.txt /tmp/smwc3${file_name}.txt "${brainageR_dir}"/software/GPR_model_gm_wm_csf.RData $output_filename
 ## clean up
 if [ -z $debug_mode ]; then
 for img in c1 c2 c3 rc1 rc2 rc3 u_rc1 smwc1 smwc2 smwc3; do
-	rm ${img}${file_name}.nii
+	rm ${full_path}/${img}${file_name}.nii
 done
-rm ${file_name}*seg8.mat
+rm ${full_path}/${file_name}*seg8.mat
 fi

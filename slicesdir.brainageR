@@ -105,9 +105,11 @@ if [ ! -f "$3" ] ; then
 fi
 
 if [ "$1" = "-n" ] ; then
-    dir_name=$2
-    mkdir slicesdir_${dir_name}
-    shift 2
+	file_name=`basename $2`
+	full_path=`readlink -f $2 | sed -e "s@${file_name}@@"`    
+	dir_name=${full_path}/slicesdir_${file_name}
+	mkdir $dir_name
+	shift 2
 fi
 
 if [ "$1" = "-o" ] ; then
@@ -127,15 +129,15 @@ if [ "$1" = "-e" ] ; then
     shift 2
 fi
 
-sliceropts="$edgeopts -x 0.4 slicesdir_${dir_name}/grota.png -x 0.5 slicesdir_${dir_name}/grotb.png -x 0.6 slicesdir_${dir_name}/grotc.png -y 0.4 slicesdir_${dir_name}/grotd.png -y 0.5 slicesdir_${dir_name}/grote.png -y 0.6 slicesdir_${dir_name}/grotf.png -z 0.4 slicesdir_${dir_name}/grotg.png -z 0.5 slicesdir_${dir_name}/groth.png -z 0.6 slicesdir_${dir_name}/groti.png"
-convertopts="slicesdir_${dir_name}/grota.png + slicesdir_${dir_name}/grotb.png + slicesdir_${dir_name}/grotc.png + slicesdir_${dir_name}/grotd.png + slicesdir_${dir_name}/grote.png + slicesdir_${dir_name}/grotf.png + slicesdir_${dir_name}/grotg.png + slicesdir_${dir_name}/groth.png + slicesdir_${dir_name}/groti.png"
+sliceropts="$edgeopts -x 0.4 ${dir_name}/grota.png -x 0.5 ${dir_name}/grotb.png -x 0.6 ${dir_name}/grotc.png -y 0.4 ${dir_name}/grotd.png -y 0.5 ${dir_name}/grote.png -y 0.6 ${dir_name}/grotf.png -z 0.4 ${dir_name}/grotg.png -z 0.5 ${dir_name}/groth.png -z 0.6 ${dir_name}/groti.png"
+convertopts="${dir_name}/grota.png + ${dir_name}/grotb.png + ${dir_name}/grotc.png + ${dir_name}/grotd.png + ${dir_name}/grote.png + ${dir_name}/grotf.png + ${dir_name}/grotg.png + ${dir_name}/groth.png + ${dir_name}/groti.png"
 if [ "$1" = "-S" ] ; then
-    sliceropts="-S 2 1600 slicesdir_${dir_name}/grota.png"
-    convertopts="slicesdir_${dir_name}/grota.png"
+    sliceropts="-S 2 1600 ${dir_name}/grota.png"
+    convertopts="${dir_name}/grota.png"
     shift
 fi
 
-echo '<HTML><TITLE>slicedir</TITLE><BODY BGCOLOR="#458dd1">' > slicesdir_${dir_name}/index.html
+echo '<HTML><TITLE>slicedir</TITLE><BODY BGCOLOR="#458dd1">' > ${dir_name}/index.html
 
 number=`echo $* | wc -w`
 
@@ -154,9 +156,9 @@ while [ $i -lt $number ] ; do
 	Q=`echo $A | sed "s/\//_/g"`_to_`echo $B | sed "s/\//_/g"`
     fi
 
-    ${FSLDIR}/bin/pngappend $convertopts slicesdir_${dir_name}/${Q}.png
-    /bin/rm -f slicesdir_${dir_name}/grot?.png
-    echo '<a href="'${Q}'.png"><img src="'${Q}'.png" WIDTH='$Width' >' ${Q}'</a><br>' >> slicesdir_${dir_name}/index.html
+    ${FSLDIR}/bin/pngappend $convertopts ${dir_name}/${Q}.png
+    /bin/rm -f ${dir_name}/grot?.png
+    echo '<a href="'${Q}'.png"><img src="'${Q}'.png" WIDTH='$Width' >' ${Q}'</a><br>' >> ${dir_name}/index.html
 
     shift
     i=`echo "$i 1 + p" | dc -`
@@ -166,9 +168,9 @@ while [ $i -lt $number ] ; do
     fi
 done
 
-echo '</BODY></HTML>' >> slicesdir_${dir_name}/index.html
+echo '</BODY></HTML>' >> ${dir_name}/index.html
 
 echo ''
 echo 'Finished. To view, point your web browser at'
-echo file:`pwd`/slicesdir_${dir_name}/index.html
+echo file:${dir_name}/index.html
 
