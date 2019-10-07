@@ -16,6 +16,8 @@ The brainageR model for v2.0 was trained on n = 3377 healthy individuals from se
 
 The model performance on the held-out test data (with random assignment to training and test) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.973, mean absolute error = 3.933 years, R^2 = 0.946. While a bias has been reported in terms of a correlation between chronological age and the brain-age difference, in this GPR model the correlation in the test set was r = -0.005. Hence, the model DOES NOT automatically correct predictions for a statistical dependency on chronological age. It is still recommend to use age as a covariate in future analysis that used brain-prediced age difference (brain-PAD) as the outcome measure.
 
+The model has been tested using an entirely independent data, CamCAN, which was not used for training. These data included n=577 people aged 18-90 years. Performance here was r = 0.94, MAE = 5.04 years. Interestingly, there was still a significant relationship between the brain-predicted age difference (brain-PAD, AKA gap, AKA delta) and chronological age, r = -0.38. This reiterates the importance of correcting for the proportional bias in subsequent analyses.
+
 ### Citations
 This model has yet to be used in a publication as of 30/09/2019, however some of the training dataset and general approach have been used before. So if you use this software, please consider citing one or more of the following papers:
 * Cole JH, Ritchie SJ, Bastin ME, Valdes Hernandez MC, Munoz Maniega S, Royle N et al. Brain age predicts mortality. Molecular psychiatry 2018; 23: 1385-1392.
