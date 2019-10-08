@@ -14,9 +14,13 @@ The brainageR model for v2.0 was trained on n = 3377 healthy individuals from se
 * Open Acces Series of Imaging Studies-1 ([OASIS-1](https://www.oasis-brains.org/))
 * Southwest University Adult Lifespan Dataset ([SALD](http://fcon_1000.projects.nitrc.org/indi/retro/sald.html))
 
-The model performance on the held-out test data (with random assignment to training and test) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.973, mean absolute error = 3.933 years, R^2 = 0.946. While a bias has been reported in terms of a correlation between chronological age and the brain-age difference, in this GPR model the correlation in the test set was r = -0.005. Hence, the model DOES NOT automatically correct predictions for a statistical dependency on chronological age. It is still recommend to use age as a covariate in future analysis that used brain-prediced age difference (brain-PAD) as the outcome measure.
+The model performance on the held-out test data (with random assignment to training and test) is as follows: Pearson's correlation between chronological age and brain-predicted age: r = 0.973, mean absolute error = 3.933 years, R^2 = 0.946. While a bias has been reported in terms of a correlation between chronological age and the brain-age difference, in this GPR model the correlation in the test set was r = -0.012. Hence, the model DOES NOT automatically correct predictions for a statistical dependency on chronological age. It is still recommend to use age as a covariate in future analysis that used brain-prediced age difference (brain-PAD) as the outcome measure.
 
-The model has been tested using an entirely independent data, CamCAN, which was not used for training. These data included n=577 people aged 18-90 years. Performance here was r = 0.94, MAE = 5.04 years. Interestingly, there was still a significant relationship between the brain-predicted age difference (brain-PAD, AKA gap, AKA delta) and chronological age, r = -0.38. This reiterates the importance of correcting for the proportional bias in subsequent analyses.
+![alt text](https://figshare.com/articles/brainageR_test_scatterplot_pdf/9948536)
+
+The model has been tested using an entirely independent data, CamCAN, which was not used for training. These data included n=611 people aged 18-90 years. Performance here was r = 0.947, MAE = 4.90 years. Interestingly, there was still a significant relationship between the brain-predicted age difference (brain-PAD, AKA gap, AKA delta) and chronological age, r = -0.379. This reiterates the importance of correcting for the proportional bias in subsequent analyses.
+
+![alt text](https://figshare.com/articles/brainageR_CamCAN_scatterplot_pdf/9948533)
 
 ### Citations
 This model has yet to be used in a publication as of 30/09/2019, however some of the training dataset and general approach have been used before. So if you use this software, please consider citing one or more of the following papers:
@@ -57,9 +61,9 @@ brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ```
 
 ## Installation
-Currently this Github repo is missing a crucial file (pca_rotation.rds), the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. However, you can can this from the v2.0 Releases [page](https://github.com/james-cole/brainageR/releases), where it is listed under Binaries. It's also availabe on [Zenodo](https://doi.org/10.5281/zenodo.1346266) or [OSF](https://osf.io/azwmg/).
-Once you have that file, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
-Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12. This is what is currently in there, so please edit accordingly:
+Currently this Github repo is missing a crucial file (pca_rotation.rds), the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. However, you can get this from the v2.0 Releases [page](https://github.com/james-cole/brainageR/releases), where it is listed under Binaries, along with two other much smaller binary files that you'll need. It's also availabe on [Zenodo](https://doi.org/10.5281/zenodo.3463212) or [OSF](https://osf.io/azwmg/).
+Once you have the .rds files, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
+Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12, your MATLAB binary and your FSL directory. This is what is currently in there, so please edit accordingly:
 ```
 brainageR_dir=/home/jcole/brain_age/BRAIN_AGE_T1/brainageR/
 spm_dir=/apps/matlab_toolboxes/spm12/
