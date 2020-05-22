@@ -61,7 +61,7 @@ brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ```
 
 ## Installation
-Currently this Github repo is missing a crucial file (pca_rotation.rds), the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. However, you can get this from the v2.0 Releases [page](https://github.com/james-cole/brainageR/releases), where it is listed under Binaries, along with two other much smaller binary files that you'll need. It's also availabe on [Zenodo](https://doi.org/10.5281/zenodo.3463212) or [OSF](https://osf.io/azwmg/).
+Currently this Github repo is missing a crucial file (pca_rotation.rds), the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. However, you can get this from the v2.1 Releases [page](https://github.com/james-cole/brainageR/releases), where it is listed under Binaries, along with two other much smaller binary files that you'll need. It's also availabe on [Zenodo](https://doi.org/10.5281/zenodo.3463212) or [OSF](https://osf.io/azwmg/).
 Once you have the .rds files, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
 Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12, your MATLAB binary and your FSL directory. This is what is currently in there, so please edit accordingly:
 ```
