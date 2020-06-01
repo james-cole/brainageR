@@ -1,12 +1,12 @@
 #!/bin/sh
 ## brainageR software, global wrapper script
-## James Cole, King's College London james.cole@kcl.ac.uk
-## software version 2.0 24 Sep 2019
+## James Cole, University College London james.cole@ucl.ac.uk
+## software version 2.1 Oct 2020
 
 usage() {
     cat <<EOF
 
-brainageR software version 2.0 24 Sep 2019
+brainageR software version 2.1 Oct 2020
 
 Required arguments: 
 	-f: input Nifti file
