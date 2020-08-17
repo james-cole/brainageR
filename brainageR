@@ -58,25 +58,33 @@ for software in R matlab fsl; do
 	software_check2=`type $software | grep -o bin`
 	if [ ! $software_check2 == "bin" ]; then echo $software not found; exit 1; fi
 done
-## software directories for your local system
+## set software directories for your local system
 brainageR_dir=/home/jcole/Work/Brain\ ageing/brainageR
 spm_dir=/usr/local/spm12/
 matlab_path=/usr/local/bin/matlab
 FSLDIR=/usr/local/fsl/
 ## run brainageR analysis
+### SPM12 segmentation and normalisation
 cmd="$matlab_path -nosplash -nodesktop -r \"addpath(['$brainageR_dir','/software/']);spm_preprocess_brainageR('$full_path_file',['$brainageR_dir','/software/templates/'], '$spm_dir');exit\""
 eval ${cmd}
+### check that the pre-processing has completed
+if [ ! -f "${full_path}/smwc1${file_name}.nii" ]; then
+	echo "Processed grey matter file not found: SPM12 pre-processing probably failed"
+	exit 1
+fi
 echo ${full_path}/smwc1${file_name}.nii > /tmp/smwc1${file_name}.txt
 echo ${full_path}/smwc2${file_name}.nii > /tmp/smwc2${file_name}.txt
 echo ${full_path}/smwc3${file_name}.nii > /tmp/smwc3${file_name}.txt
-## generate QC images and html file
+### generate QC images and html file
 bash "$brainageR_dir"/software/slicesdir.brainageR -n ${full_path}/${file_name}.nii ${full_path}/[c,s]*[1,2,3]*${file_name}.nii
-## generate predictions
+### generate predictions
 Rscript "$brainageR_dir"/software/predict_new_data_gm_wm_csf.R "${brainageR_dir}" /tmp/smwc1${file_name}.txt /tmp/smwc2${file_name}.txt /tmp/smwc3${file_name}.txt "${brainageR_dir}"/software/GPR_model_gm_wm_csf.RData $output_filename
-## clean up
+### clean up
 if [ -z $debug_mode ]; then
-for img in c1 c2 c3 rc1 rc2 rc3 u_rc1 smwc1 smwc2 smwc3; do
-	rm ${full_path}/${img}${file_name}.nii
-done
-rm ${full_path}/${file_name}*seg8.mat
+	if [ -f "c1${file_name}.nii" ]; then
+		for img in c1 c2 c3 rc1 rc2 rc3 u_rc1 smwc1 smwc2 smwc3; do
+			rm ${full_path}/${img}${file_name}.nii
+		done
+	fi
+	rm ${full_path}/${file_name}*seg8.mat
 fi
