@@ -81,7 +81,7 @@ bash "$brainageR_dir"/software/slicesdir.brainageR -n ${full_path}/${file_name}.
 Rscript "$brainageR_dir"/software/predict_new_data_gm_wm_csf.R "${brainageR_dir}" /tmp/smwc1${file_name}.txt /tmp/smwc2${file_name}.txt /tmp/smwc3${file_name}.txt "${brainageR_dir}"/software/GPR_model_gm_wm_csf.RData $output_filename
 ### clean up
 if [ -z $debug_mode ]; then
-	if [ -f "c1${file_name}.nii" ]; then
+	if [ -f "${full_path}/c1${file_name}.nii" ]; then
 		for img in c1 c2 c3 rc1 rc2 rc3 u_rc1 smwc1 smwc2 smwc3; do
 			rm ${full_path}/${img}${file_name}.nii
 		done
