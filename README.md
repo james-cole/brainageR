@@ -35,12 +35,12 @@ https://cran.r-project.org/web/packages/kernlab/citation.html
 
 ## Prerequisites
 * SPM12 (and thus MATLAB)
- * Version r7219 (there is an issue with some newer versions identified in r7771, but probably present from r7593)
+	* Version r7219 (there is an issue with some newer versions identified in r7771, but probably present from r7593)
 * R (tested on v3.4)
 * R packages:
- * kernlab
- * RNifti
- * stringr
+	* kernlab
+ 	* RNifti
+ 	* stringr
 
 ### Optional (but recommended) software
 * FSL (for running slicesdir to generate images for quality checking the SPM segmentation)
