@@ -44,7 +44,11 @@ if [ -z "${input_file}" ] || [ -z "${output_filename}" ]; then
     usage
 fi
 
-full_path_file=`readlink -f $input_file`
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	full_path_file=`greadlink -f $input_file`
+else
+	full_path_file=`readlink -f $input_file`
+fi
 file_name=`basename -s .nii $full_path_file`
 full_path=`echo $full_path_file | sed -e "s@${file_name}.nii@@"`
 echo $full_path
