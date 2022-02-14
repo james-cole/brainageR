@@ -106,7 +106,11 @@ fi
 
 if [ "$1" = "-n" ] ; then
 	file_name=`basename $2`
-	full_path=`readlink -f $2 | sed -e "s@${file_name}@@"`    
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+		full_path=`greadlink -f $2 | sed -e "s@${file_name}@@"`    
+	else
+		full_path=`readlink -f $2 | sed -e "s@${file_name}@@"`    
+	fi
 	dir_name=${full_path}/slicesdir_${file_name}
 	mkdir $dir_name
 	shift 2
