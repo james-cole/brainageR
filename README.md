@@ -62,16 +62,53 @@ brainageR -f subj01_T1.nii -o subj01_brain_predicted.age.csv
 ```
 
 ## Installation
-Currently this Github repo is missing a crucial file (pca_rotation.rds), the rotation matrix created by running PCA on the training data (and necessary for applying to new data). This file is 2GB in size, over the limit for non-premium Github LFS. However, you can get this from the v2.1 Releases [page](https://github.com/james-cole/brainageR/releases), where it is listed under Binaries, along with two other much smaller binary files that you'll need. It's also availabe on [Zenodo](https://doi.org/10.5281/zenodo.3463212) or [OSF](https://osf.io/azwmg/).
-Once you have the .rds files, you should be able to clone this repo and save it in a directory call `brainage`, with a subdirectory called `software`.
-Once you have the software files, you need to edit the `brainageR` script to set the `brainageR_dir` to the directory where the software files are and add the full pathway to your local installation of SPM12, your MATLAB binary and your FSL directory. This is what is currently in there, so please edit accordingly:
+First, create a directory to work in, i.e., `brainageR`, and cd into it. This will be your `brainageR_dir`.
+
+```
+mkdir brainageR
+cd brainageR
+```
+
+Next, clone this repository into the folder `software` using following command:
+
+```
+git clone https://github.com/james-cole/brainageR.git software
+```
+
+Currently, this Github repo is missing three crucial files (`pca_center.rds`,`pca_rotation.rds`,`pca_scale.rds`). These are files created by running PCA on the training data, and are necessary for applying to new data. These files are close to 2GB and over the limit for non-premium Github LFS. You can get these from the v2.1 Releases [page](https://github.com/james-cole/brainageR/releases). It's also available on [Zenodo](https://doi.org/10.5281/zenodo.3463212) or [OSF](https://osf.io/azwmg/). Download those three files and put them into the `software` directory. The directory should now look like:
+
+```
+brainageR/
+└── software/
+    ├── templates/
+    ├── GPR_model_gm_wm_csf.RData
+    ├── LICENSE
+    ├── README.md
+    ├── all_BANC_2019.csv
+    ├── brainageR
+    ├── brains.train_labels.csv
+    ├── collate_brain_ages.sh
+    ├── generate_submit_scripts.sh
+    ├── predict_new_data_gm_wm_csf.R
+    ├── sge_submit_template.sh
+    ├── slicesdir.brainageR
+    ├── slurm_submit_template.sh
+    ├── spm_preprocess_brainageR.m
+    ├── submit_template.sh
+    ├── pca_center.rds
+    ├── pca_rotation.rds
+    └── pca_scale.rds
+```
+
+Once you have the software files, you need to edit the [brainageR](https://github.com/james-cole/brainageR/blob/4f76f96372dcfc08f97a28f2fe2601a88ed9db7e/brainageR#L66) script located in `brainageR/software/` to set the `brainageR_dir`. Further, add the full pathway to your local installation of SPM12, your MATLAB binary, and your FSL directory. This is what is currently in there, so please edit accordingly:
+
 ```
 brainageR_dir=/home/jcole/brain_age/BRAIN_AGE_T1/brainageR/
 spm_dir=/apps/matlab_toolboxes/spm12/
 matlab_path=/Applications/MATLAB_R2017b.app/bin/matlab
 FSLDIR=/usr/local/fsl/
 ```
-For ease, you might then want to add the brainageR software directory to your path environmental variable.
+For ease, you might then want to add the `software` directory to your path environmental variable.
 
 ## Notes
 The software works on a single T1-weighted MRI scan in uncompressed Nifti format (e.g., subj01\_T1.nii). It can run locally or using an HPC cluster environment. To submit to an HPC queue manager (e.g., SGE, SLURM) you can use one the supplied templates (e.g., submit\_template.sh). Simply edit this script to fit your local environment, which will depend on how your sysadmin has configured MATLAB and R to run on your grid. You can then use the **generate_submit_scripts.sh** utility to create multiple versions of your tailored submit script, one per nifti file. Then use a for loop to submit these multiple scripts to the queue manager.
