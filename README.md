@@ -25,10 +25,10 @@ The model has been tested using an entirely independent data, CamCAN, which was 
 For a plot of brain-predicted age and age in CamCAN please see figshare [here](https://figshare.com/articles/brainageR_CamCAN_scatterplot_pdf/9948533)
 
 ### Citations
-This model has yet to be used in a publication as of 30/09/2019, however some of the training dataset and general approach have been used before. So if you use this software, please consider citing one or more of the following papers:
-* Cole JH, Ritchie SJ, Bastin ME, Valdes Hernandez MC, Munoz Maniega S, Royle N et al. Brain age predicts mortality. Molecular psychiatry 2018; 23: 1385-1392.
-* Cole JH, Poudel RPK, Tsagkrasoulis D, Caan MWA, Steves C, Spector TD et al. Predicting brain age with deep learning from raw imaging data results in a reliable and heritable biomarker. NeuroImage 2017; 163C: 115-124.
-* Cole JH, Leech R, Sharp DJ, for the Alzheimer's Disease Neuroimaging Initiative. Prediction of brain age suggests accelerated atrophy after traumatic brain injury. Ann Neurol 2015; 77(4): 571-581.
+While there is no specific journal article associated with the software, we have published several works using brainageR. So, if you use this software, please consider citing one or more of the following papers:
+* Clausen, A. N., Fercho, K. A., Monsour, M., Disner, S., Salminen, L., Haswell, C. C., . . . Morey, R. A. (2022). Assessment of brain age in posttraumatic stress disorder: Findings from the ENIGMA PTSD and brain age working groups. Brain and Behavior, 12(1), e2413. doi:https://doi.org/10.1002/brb3.2413
+* Hobday, H., Cole, J. H., Stanyard, R. A., Daws, R. E., Giampietro, V., O’Daly, O., . . . Váša, F. (2022). Tissue volume estimation and age prediction using rapid structural brain scans. Sci Rep, 12(1), 12005. doi:10.1038/s41598-022-14904-5
+* Biondo, F., Jewell, A., Pritchard, M., Aarsland, D., Steves, C. J., Mueller, C., & Cole, J. H. (2022). Brain-age is associated with progression to dementia in memory clinic patients. NeuroImage: Clinical, 36, 103175. doi:https://doi.org/10.1016/j.nicl.2022.103175
 
 I am also hosting this package on [Zenodo](https://zenodo.org/) and it has it's own [![DOI](https://zenodo.org/badge/144994886.svg)](https://zenodo.org/badge/latestdoi/144994886) and on [OSF](https://osf.io/azwmg/).
 
