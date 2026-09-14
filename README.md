@@ -6,7 +6,7 @@ The software takes raw T1-weighted MRI scans, then uses **SPM12** for segmentati
 In 2022 a dockerised version of brainageR v2.1 was developed, using Octave instead of Matlab to run SPM12. If you prefer to use that instead of this repo, please see here: https://github.com/fprados/brainageR_dockerfile
 
 ### Brain-age Model 
-The brainageR model for v2.1 was trained on n = 3377 healthy individuals (mean age = 40.6 years, SD = 21.4, age range 18-92 years) from seven publicly-available datasets, and tested on n = 857 (mean age = 40.1 years, SD = 21.8, age range 18-90 years). All participants included were healthy according to local study data. For example, OASIS participants were only included if they had a CDR score < 0.5. All data was visually quality control to ensure quality and accuracy of image processing. Demographics were error-checked, and exclusions made if age values were unavailable.
+The brainageR model for v2.1 was trained on n = 3377 healthy individuals (mean age = 40.6 years, SD = 21.4, age range 18-92 years, including 2004 females and 1373 males) from seven publicly-available datasets, and tested on n = 857 (mean age = 40.1 years, SD = 21.8, age range 18-90 years). All participants included were healthy according to local study data. For example, OASIS participants were only included if they had a CDR score < 0.5. All data was visually quality control to ensure quality and accuracy of image processing. Demographics were error-checked, and exclusions made if age values were unavailable.
 
 * Australian Imaging, Biomarker & Lifestyle Flagship Study of Ageing ([AIBL](https://aibl.csiro.au/))
 * Dallas Lifespan Brain Study ([DLBS](http://fcon_1000.projects.nitrc.org/indi/retro/dlbs.html))
